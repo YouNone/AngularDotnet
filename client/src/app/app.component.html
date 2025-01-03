@@ -1,13 +1,16 @@
-<h1>{{title}}</h1>
-<ul>
-  <!-- 
-  in order to use you need to add NgFor in imports array of app.component
-  <li *ngFor="let user of users">
-    {{user.id}} - {{user.userName}}
-  </li> -->
-  @for (user of users; track $index) {
-    <li>
+<app-nav></app-nav>
+<div class="container" style="margin-top: 100px;">
+  <ul>
+    <!-- 
+    in order to use you need to add NgFor in imports array of app.component
+    <li *ngFor="let user of users">
       {{user.id}} - {{user.userName}}
-    </li>
-  }
-</ul>
+    </li> -->
+    @for (user of users; track $index) {
+      <li>
+        {{user.id}} - {{user.userName}}
+      </li>
+    }
+  </ul>
+</div>
+
