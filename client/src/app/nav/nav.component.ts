@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+
 import { AccountService } from '../services/account.service';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [FormsModule, NgIf],
+  imports: [FormsModule, BsDropdownModule],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss'
 })
