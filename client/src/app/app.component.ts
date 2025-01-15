@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavComponent } from "./nav/nav.component";
@@ -15,22 +14,12 @@ import { HomeComponent } from "./home/home.component";
 export class AppComponent implements OnInit {  
 
   private accountService = inject(AccountService);
-  http = inject(HttpClient);
-  title = 'DatingApp';
-  users: any;
 
   ngOnInit(): void {
-    this.getUsers();
     this.setCurrentUser();
   }
 
-  getUsers() {
-    this.http.get("https:/localhost:5001/api/users").subscribe({
-      next: response => this.users = response,
-      error:error => console.log(error),
-      complete: () => console.log("requset comleted")
-    });
-  }
+  
 
   setCurrentUser() {
     const userString = localStorage.getItem("user");
