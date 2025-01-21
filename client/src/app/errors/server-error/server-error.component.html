@@ -1,0 +1,15 @@
+<h4>Internal Server Error</h4>
+@if (error) {
+    <h5 class="text-danger">Error {{error.message}}</h5>
+    <p class="font-weight-bold"> Note: this is API error.</p>
+    <p>What to do next?</p>
+    <ol>
+        <li>Open Chrome dev tools and check the failing network request in network tab.</li>
+        <li>Examine the URL of the failing request.</li>
+        <li>Reproduce error in Postman.</li>
+    </ol>
+    <p class="font-weight-bold">Inspect first 2 lines of error, it tells you exactly which line of code caused the problem.</p>
+    <code class="mt-5">
+       {{error.details}} 
+    </code>
+}
