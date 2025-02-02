@@ -1,11 +1,11 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, inject, OnInit, ViewChild } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { Member } from '../../models/member';
 import { AccountService } from '../../services/account.service';
 import { MembersService } from '../../services/members.service';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { FormsModule, NgForm } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-member-edit',
@@ -16,6 +16,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class MemberEditComponent implements OnInit{
     @ViewChild("editForm") editForm?: NgForm;
+    @HostListener('window:beforeunload', ['$event']) notify($event: any) {
+        if (this.editForm?.dirty) {
+            $event.returnValue = true;
+        }
+    };
     private accountService = inject(AccountService);
     private memberService = inject(MembersService);
     private toastr = inject(ToastrService);
