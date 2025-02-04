@@ -1,36 +1,24 @@
 <form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
     <h2 class="text-center text-primary">Sign up</h2>
     <hr>
-    <div class="mb-3 form-floating">
-        <input 
-            type="text" 
-            class="form-control" 
-            name="username" 
-            formControlName="username" 
-            placeholder="Username"
-        >
-        <label>Username</label>
-    </div>
 
-    <div class="mb-3 form-floating">
-        <input 
-            type="password" 
-            class="form-control" 
-            formControlName="password"  
-            placeholder="Password"
-        >
-        <label>Password</label>
-    </div>
+    <app-text-input
+        [formControl]="$any(registerForm.controls['username'])"
+        [label]="'Username'"
+    ></app-text-input>
 
-    <div class="mb-3 form-floating">
-        <input 
-            type="password" 
-            class="form-control" 
-            formControlName="confirmPassword"  
-            placeholder="Confirm Password"
-        >
-        <label>Confirm Password</label>
-    </div>
+    <app-text-input
+        [formControl]="$any(registerForm.controls['password'])"
+        [label]="'Password'"
+        [type]="'password'"
+
+    ></app-text-input>
+
+    <app-text-input
+        [formControl]="$any(registerForm.controls['confirmPassword'])"
+        [label]="'Confirm password'"
+        [type]="'password'"
+    ></app-text-input>
 
     <div class="form-group text-center">
         <button class="btn btn-success me-2" type="submit">Register</button>
