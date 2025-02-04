@@ -11,45 +11,63 @@ import { Photo } from '../models/Photo';
 })
 export class MembersService {
   private http = inject(HttpClient);
-  BaseUrl = environment.apiUrl;
+  baseUrl = environment.apiUrl;
   members = signal<Member[]>([]);
 
   getMembers() {
-    return this.http.get<Member[]>(this.BaseUrl + 'users').subscribe({
-        next: members => this.members.set(members)
+    return this.http.get<Member[]>(this.baseUrl + 'users').subscribe({
+      next: (members) => this.members.set(members),
     });
   }
 
   getMember(username: string) {
-    const member = this.members().find(mem => mem.username === username);
+    const member = this.members().find((mem) => mem.username === username);
     if (member !== undefined) return of(member);
-    
-    return this.http.get<Member>(this.BaseUrl + 'users/' + username);
+
+    return this.http.get<Member>(this.baseUrl + 'users/' + username);
   }
 
-  updateMember(member: Member ) {
-    return this.http.put<Member>(this.BaseUrl + 'users', member).pipe(
+  updateMember(member: Member) {
+    return this.http.put<Member>(this.baseUrl + 'users', member).pipe(
       tap(() => {
-        this.members
-            .update(membs => membs
-                .map(m => m.username === member.username ? member : m));
-      })  
+        this.members.update((membs) =>
+          membs.map((m) => (m.username === member.username ? member : m))
+        );
+      })
     );
   }
 
   setMainPhoto(photo: Photo) {
-    return this.http.put(this.BaseUrl + 'users/set-main-photo/' + photo.id, {}).pipe(
+    return this.http
+      .put(this.baseUrl + 'users/set-main-photo/' + photo.id, {})
+      .pipe(
         tap(() => {
-          this.members
-              .update(membs => membs
-                  .map(m => {
-                    if (m.photos.includes(photo)) {
-                        m.photoUrl = photo.url;
-                    }
-                    return m;
-                  }));
-        })  
+          this.members.update((membs) =>
+            membs.map((m) => {
+              if (m.photos.includes(photo)) {
+                m.photoUrl = photo.url;
+              }
+              return m;
+            })
+          );
+        })
       );
+  }
 
+  deletePhoto(photo: Photo) {
+    return this.http
+      .delete(this.baseUrl + 'users/delete-photo/' + photo.id)
+      .pipe(
+        tap(() => {
+          this.members.update((membs) =>
+            membs.map((m) => {
+              if (m.photos.includes(photo)) {
+                m.photos = m.photos.filter((ph) => ph.id !== photo.id);
+              }
+              return m;
+            })
+          );
+        })
+      );
   }
 }
