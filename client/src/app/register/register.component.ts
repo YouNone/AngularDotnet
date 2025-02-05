@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { JsonPipe, NgIf } from '@angular/common';
 import { TextInputComponent } from "../forms/text-input/text-input.component";
 import { DatePickerComponent } from "../forms/date-picker/date-picker.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,10 +19,12 @@ export class RegisterComponent implements OnInit {
   private accountService = inject(AccountService);
   private toastr = inject(ToastrService);
   private fb = inject(FormBuilder);
+  private router = inject(Router);
   cancelRegister = output<boolean>();
   model: any = {};
   registerForm: FormGroup = new FormGroup({});
   maxDate = new Date();
+  validationErrors: string[] | undefined;
 
   ngOnInit(): void {
     this.maxDate.setFullYear(this.maxDate.getFullYear() -18);
@@ -51,20 +54,24 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    console.log(this.registerForm.value);
-    // this.accountService.register(this.model).subscribe({
-    //   next: (response) => {
-    //     console.log(response);
-    //     this.cancel();
-    //   },
-    //   error: (error) => {
-    //     console.log(error);
-    //     this.toastr.error(error.error);
-    //   },
-    // });
+    const dob = this.getDateOnly(this.registerForm.get("dateOfBirth")?.value);
+    this.registerForm.patchValue({ dateOfBirth: dob});
+    this.accountService.register(this.model).subscribe({
+      next: response => this.router.navigateByUrl('/members'),
+      error: error => {
+          this.validationErrors = error;
+        //   console.log(error);
+        // this.toastr.error(error.error);
+      },
+    });
   }
 
   cancel() {
     this.cancelRegister.emit(false);
+  }
+
+  private getDateOnly(dateOfBirth: string | undefined) {
+    if (!dateOfBirth) return;
+    return new Date(dateOfBirth).toISOString().slice(0, 10)
   }
 }
