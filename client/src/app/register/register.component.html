@@ -53,7 +53,7 @@
     ></app-text-input>
 
     @if (validationErrors) {
-        <div class="alert alert-danger">
+        <div class="alert alert-danger text-start">
             <ul>
                 @for (error of validationErrors; track $index) {
                     <li>{{error}}</li>
@@ -63,7 +63,7 @@
     }
 
     <div class="form-group text-center">
-        <button class="btn btn-success me-2" type="submit">Register</button>
+        <button  [disabled]="!registerForm.valid" class="btn btn-success me-2" type="submit">Register</button>
         <button class="btn btn-default me-2" type="button" (click)="cancel()">Cancel</button>
     </div>
 </form>
