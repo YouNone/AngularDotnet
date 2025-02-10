@@ -5,11 +5,13 @@ import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 
 import { MembersService } from '../../services/members.service';
 import { Member } from '../../models/member';
+import { TimeagoModule } from 'ngx-timeago';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-member-detail',
   standalone: true,
-  imports: [TabsModule, GalleryModule],
+  imports: [TabsModule, GalleryModule, TimeagoModule, DatePipe],
   templateUrl: './member-detail.component.html',
   styleUrl: './member-detail.component.scss'
 })

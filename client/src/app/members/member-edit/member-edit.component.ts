@@ -7,11 +7,13 @@ import { Member } from '../../models/member';
 import { AccountService } from '../../services/account.service';
 import { MembersService } from '../../services/members.service';
 import { PhotoEditorComponent } from "../photo-editor/photo-editor.component";
+import { TimeagoModule } from 'ngx-timeago';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-member-edit',
   standalone: true,
-  imports: [TabsModule, FormsModule, PhotoEditorComponent],
+  imports: [TabsModule, FormsModule, PhotoEditorComponent, TimeagoModule, DatePipe],
   templateUrl: './member-edit.component.html',
   styleUrl: './member-edit.component.scss'
 })
