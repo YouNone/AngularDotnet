@@ -17,7 +17,7 @@ public class UserRepository(DataContext context, IMapper mapper) : IUserReposito
 
     public async Task<AppUser?> GetUserByIdAsync(int id)
     {
-       return await context.Users.FindAsync(id);
+        return await context.Users.FindAsync(id);
     }
 
     public async Task<AppUser?> GetUserByUsernameAsync(string username)
@@ -37,23 +37,39 @@ public class UserRepository(DataContext context, IMapper mapper) : IUserReposito
 
     public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
     {
-       var query = context.Users.AsQueryable();
+        var query = context.Users.AsQueryable();
 
-       query = query.Where(u => u.UserName != userParams.CurrentUsername);
+        query = query.Where(u => u.UserName != userParams.CurrentUsername);
 
-       if (userParams.Gender != null)
-       {       
+        if (userParams.Gender != null)
+        {
             query = query.Where(u => u.Gender == userParams.Gender);
-       }
+        }
 
-        var minDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MaxAge -1));
+        var minDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MaxAge - 1));
         var maxDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MinAge));
 
         query = query.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
+
+    // Same code but shorter
+        query = userParams.OrderBy switch
+        {
+            "created" => query.OrderByDescending(x => x.Created),
+            _ => query.OrderByDescending(x => x.LastActive)
+        };
         
+        // if (userParams.OrderBy == "created")
+        // {
+        //     query = query.OrderByDescending(x => x.Created);
+        // }
+        // else
+        // {
+        //     query = query.OrderByDescending(x => x.LastActive);
+        // }
+
         return await PagedList<MemberDto>.CreateAsync(
-            query.ProjectTo<MemberDto>(mapper.ConfigurationProvider), 
-            userParams.PageNumber, 
+            query.ProjectTo<MemberDto>(mapper.ConfigurationProvider),
+            userParams.PageNumber,
             userParams.PageSize
         );
     }
