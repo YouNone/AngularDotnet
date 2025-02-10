@@ -5,8 +5,6 @@ import { FormsModule } from '@angular/forms';
 
 import { MembersService } from '../../services/members.service';
 import { MemberCardComponent } from "../member-card/member-card.component";
-import { AccountService } from '../../services/account.service';
-import { UserParams } from '../../models/userParams';
 
 @Component({
   selector: 'app-member-list',
@@ -16,29 +14,27 @@ import { UserParams } from '../../models/userParams';
   styleUrl: './member-list.component.scss'
 })
 export class MemberListComponent implements OnInit {
-    private accountService = inject(AccountService);
-    membersService = inject(MembersService);
-    userParams = new UserParams(this.accountService.currentUser());
+    memberService = inject(MembersService);
     genderList = [{value: 'male', display: 'Males'}, {value: 'female', display: 'Females'}]
 
   ngOnInit(): void {
-    if (!this.membersService.paginatedResult()) {
+    if (!this.memberService.paginatedResult()) {
         this.loadMembers();
     }
   }
 
   loadMembers() {
-    this.membersService.getMembers(this.userParams);
+    this.memberService.getMembers();
   }
 
   resetFilters() {
-    this.userParams = new UserParams(this.accountService.currentUser());
+    this.memberService.resetUserParams()
     this.loadMembers();
   }
 
   pageChanged(event: any) {
-    if (this.userParams.pageNumber !== event.page) {
-        this.userParams.pageNumber = event.page;
+    if (this.memberService.userParams().pageNumber !== event.page) {
+        this.memberService.userParams().pageNumber = event.page;
         this.loadMembers();
     }
   }
