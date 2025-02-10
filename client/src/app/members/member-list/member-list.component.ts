@@ -11,17 +11,19 @@ import { MemberCardComponent } from "../member-card/member-card.component";
   styleUrl: './member-list.component.scss'
 })
 export class MemberListComponent implements OnInit {
+    pageNumber = 1;
+    pageSize = 5;
   
   membersService = inject(MembersService);
 
   ngOnInit(): void {
-    if (this.membersService.members().length === 0) {
+    if (!this.membersService.paginatedResult()) {
         this.loadMembers();
     }
   }
 
   loadMembers() {
-    this.membersService.getMembers();
+    this.membersService.getMembers(this.pageNumber, this.pageSize);
   }
 
 }
