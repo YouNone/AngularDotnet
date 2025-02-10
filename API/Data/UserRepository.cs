@@ -57,7 +57,6 @@ public class UserRepository(DataContext context, IMapper mapper) : IUserReposito
             "created" => query.OrderByDescending(x => x.Created),
             _ => query.OrderByDescending(x => x.LastActive)
         };
-        
         // if (userParams.OrderBy == "created")
         // {
         //     query = query.OrderByDescending(x => x.Created);
