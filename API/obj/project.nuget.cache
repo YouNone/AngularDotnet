@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OgWsywmB+Y8=",
+  "dgSpecHash": "GuI9VLwIWS0=",
   "success": true,
-  "projectFilePath": "D:\\Study\\ASPNET Core and Angular\\skeleton1\\DatingApp\\API\\API.csproj",
+  "projectFilePath": "D:\\Study\\ASPNET Core and Angular\\skeleton1\\DatingApp\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\velen\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\velen\\.nuget\\packages\\cloudinarydotnet\\1.27.2\\cloudinarydotnet.1.27.2.nupkg.sha512",

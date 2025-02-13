@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Study\\ASPNET Core and Angular\\skeleton1\\DatingApp\\API\\API.csproj": {}
+    "D:\\Study\\ASPNET Core and Angular\\skeleton1\\DatingApp\\api\\API.csproj": {}
   },
   "projects": {
-    "D:\\Study\\ASPNET Core and Angular\\skeleton1\\DatingApp\\API\\API.csproj": {
+    "D:\\Study\\ASPNET Core and Angular\\skeleton1\\DatingApp\\api\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Study\\ASPNET Core and Angular\\skeleton1\\DatingApp\\API\\API.csproj",
+        "projectUniqueName": "D:\\Study\\ASPNET Core and Angular\\skeleton1\\DatingApp\\api\\API.csproj",
         "projectName": "API",
-        "projectPath": "D:\\Study\\ASPNET Core and Angular\\skeleton1\\DatingApp\\API\\API.csproj",
+        "projectPath": "D:\\Study\\ASPNET Core and Angular\\skeleton1\\DatingApp\\api\\API.csproj",
         "packagesPath": "C:\\Users\\velen\\.nuget\\packages\\",
-        "outputPath": "D:\\Study\\ASPNET Core and Angular\\skeleton1\\DatingApp\\API\\obj\\",
+        "outputPath": "D:\\Study\\ASPNET Core and Angular\\skeleton1\\DatingApp\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\velen\\AppData\\Roaming\\NuGet\\NuGet.Config",
